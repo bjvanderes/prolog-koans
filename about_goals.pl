@@ -1,5 +1,6 @@
 :- module(about_goals, [parent/2, equal/2]).
 
 parent(adam, not_steve).
+parent(adam, steve).
 
-equal(_,_) :- false.
+equal(X,X) :- true.
