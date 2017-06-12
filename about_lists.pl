@@ -11,14 +11,18 @@ my_first(X, [X|_]) :- true.
 my_last(X, [X]).
 my_last(X,[_|T]) :- my_last(X, T).
 
-my_penultimate(_,_) :- false.
+my_penultimate(X, [X]) :- false.
+my_penultimate(X, [X, _]).
 my_penultimate(X, [_|T]) :- my_penultimate(X, T).
 
 my_element_at(X,[X|_],1).
-my_element_at(_,_,_) :- false.
+my_element_at(X,[not(X)|_],1) :- false.
+my_element_at(X,[_|T],N) :- NM1 is N - 1, my_element_at(X, T, NM1).
 
+my_number_of(_,[]) :- false.
+my_number_of(0,[_]) :- false.
 my_number_of(0,[]).
-my_number_of(_,_) :- false.
+my_number_of(N,[_|T]) :- NM1 is N - 1, my_number_of(NM1, T).
 
 my_reverse(_,_) :- false.
 
