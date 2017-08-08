@@ -24,6 +24,8 @@ list_go :-
 	list_encode_modified,
 	list_encode_reverse,
 	list_encode_direct,
+    list_duplicate,
+    list_duplicate_n,
 	list_drop,
 	list_split,
 	list_slice,
