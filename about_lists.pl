@@ -55,3 +55,19 @@ remove_at(_,_,_,_) :- false.
 insert_at(_,_,_,_) :- false.
 
 range(_,_,_) :- false.
+
+extract_rnd(_, _, _) :- false.
+
+select_rnd_int(_, _, _) :- false.
+
+rnd_permutation(_, _) :- false.
+
+combination(_, _, _) :- false.
+
+group234(_, _, _, _) :- false.
+
+group(_, _, _) :- false.
+
+lsort(_, _) :- false.
+
+lfsort(_, _) :- false.

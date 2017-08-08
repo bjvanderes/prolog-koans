@@ -32,7 +32,15 @@ list_go :-
 	list_rotate,
 	list_remove_at,
 	list_insert_at,
-	list_range.
+	list_range,
+	list_extract_rnd,
+    list_select_rnd_int,
+    list_rnd_permutation,
+    list_combination,
+    list_group234,
+    list_group,
+    list_lsort,
+    list_lfsort.
 
 list_first_element :-
 	run_koan('A list is little more than a head and tail.', my_first).
@@ -102,3 +110,27 @@ list_insert_at :-
 
 list_range :-
 	run_koan('Creating a range is simple as counting', range).
+
+list_extract_rnd :-
+    run_koan('', extract_rnd).
+
+list_select_rnd_int :-
+    run_koan('', select_rnd_int).
+
+list_rnd_permutation :-
+    run_koan('', rnd_permutation).
+
+list_combination :-
+    run_koan('', combination).
+
+list_group234 :-
+    run_koan('', group234).
+
+list_group234 :-
+    run_koan('', group).
+
+list_lsort :-
+    run_koan('', lsort).
+
+list_lfsort :-
+    run_koan('', lfsort).
