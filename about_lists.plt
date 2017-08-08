@@ -34,12 +34,12 @@ test(my_reverse) :-
 test(is_palindrome) :-
 	is_palindrome([x,a,m,a,x]).
 test(is_palindrome, [fail]) :-
-	is_palindrome([a,b,c,d]).
+	is_palindrome(['a','b','c','d']).
 
 test(my_flatten, [nondet]) :-
-  my_flatten([], []),
-  my_flatten(x, [x]),
-	my_flatten([a, [b, [c,d], e]], [a,b,c,d,e]).
+  my_flatten([], []).
+test(my_flatten, [nondet]) :-
+  my_flatten([a, [b, [c,d], e]], [a,b,c,d,e]).
 
 test(my_compress, [nondet]) :-
 	my_compress([a,a,a,a,b,b,b,b,c,c,c,c,a,a,d,e,e,e,e],[a,b,c,a,d,e]).
@@ -60,10 +60,11 @@ test(my_encode_direct, [nondet]) :-
 	my_encode_direct([a,a,a,a,b,c,c,a,a,d,e,e,e,e],[[4,a],b,[2,c],[2,a],d,[4,e]]).
 
 test(my_duplicate) :-
-	my_duplicate([a,b,c,d],[a,a,a,b,b,b,c,c,c,d,d,d]).
+	my_duplicate([a,b,c,c,d],[a,a,b,b,c,c,c,c,d,d]).
 
-test(my_duplicate_for_n) :-
-	my_duplicate_for_n([a,b,c],2,[a,a,b,b,c,c]).
+test(my_duplicate_for_n, [nondet]) :-
+	my_duplicate_for_n([a,b,c],2,[a,a,b,b,c,c]),
+	my_duplicate_for_n([a,c,c,b],4,[a,a,a,a,c,c,c,c,c,c,c,c,b,b,b,b]).
 
 test(my_drop, [nondet]) :-
 	my_drop([a,b,c,d,e,f,g,h,i,k],3,[a,b,d,e,g,h,k]).
