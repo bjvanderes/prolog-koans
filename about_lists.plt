@@ -78,7 +78,7 @@ test(my_slice, [nondet]) :-
 test(my_rotate, [nondet]) :-
 	my_rotate([a,b,c,d,e,f,g,h],3,[d,e,f,g,h,a,b,c]).
 
-test(remove_at, [nondet]) :-
+test(remove_at) :-
 	remove_at(b,[a,b,c,d],2,[a,c,d]).
 
 test(insert_at, [nondet]) :-
@@ -88,25 +88,48 @@ test(range, [nondet]) :-
 	range(4,9,[4,5,6,7,8,9]).
 
 test(extract_rnd) :-
-	set_random(seed(1)), extract_rnd([a,b,c,d,e,f,g,h], 3, _).
+	set_random(seed(1)),
+    extract_rnd([a,b,c,d,e,f,g,h], 3, [d, h, c]).
+test(extract_rnd) :-
+	set_random(seed(1)),
+    extract_rnd([a], 1, [a]).
 
 test(select_rnd_int) :-
-	set_random(seed(1)), select_rnd_int(6, 49, _).
+	set_random(seed(1)),
+	select_rnd_int(6, 49, [15, 20, 42, 30, 38, 25]).
+test(select_rnd_int) :-
+	set_random(seed(1)),
+	select_rnd_int(0, 49, []).
+test(select_rnd_int) :-
+	set_random(seed(1)),
+    select_rnd_int(49, 49, [15, 20, 42, 30, 38, 25, 12, 13, 46, 19, 35, 37, 11, 48, 34, 17, 21, 28, 1, 9, 32, 43, 10, 22, 40, 27, 49, 5, 8, 26, 31, 18, 2, 4, 23, 36, 41, 39, 29, 3, 45, 44, 47, 24, 16, 33, 6, 7, 14]).
 
 test(rnd_permutation) :-
-	set_random(seed(1)), rnd_permutation([a,b,c,d,e,f], _).
+	set_random(seed(1)), rnd_permutation([a,b,c,d,e,f], [d, c, f, e, a, b]).
+
+test(combination, [nondet]) :-
+	combination(3, [a,b,c,d,e,f], [a, b, c]).
+
+test(extract_combination, [nondet]) :-
+	extract_combination(3, [a,b,c,d,e,f,g], [a, b, c], [d,e,f,g]).
 
 test(combination) :-
-	set_random(seed(1)), combination(3, [a,b,c,d,e,f], _).
+	aggregate_all(count, combination(3, [a,b,c,d,e,f], C), 20).
+
+test(extract_combination) :-
+	aggregate_all(count, extract_combination(3, [a,b,c,d,e,f], C, R), 20).
 
 test(group234) :-
-	aggregate_all(count, group234([aldo,beat,carla,david,evi,flip,gary,hugo,ida], G2, G3, G4), _).
+	aggregate_all(count, group234([aldo,beat,carla,david,evi,flip,gary,hugo,ida], G2, G3, G4), 1260).
 
-test(group) :-
+test(group, [nondet]) :-
 	group([aldo,beat,carla,david,evi,flip,gary,hugo,ida], [2,2,5], [[aldo,beat],[carla,david],[evi,flip,gary,hugo,ida]]).
 
-test(lsort) :-
-	lsort([[a,b,c],[d,e],[f,g,h],[d,e],[i,j,k,l],[m,n],[o]], [[o], [d, e], [d, e], [m, n], [a, b, c], [f, g, h], [i, j, k, l]]).
+test(group) :-
+	aggregate_all(count, group([aldo,beat,carla,david,evi,flip,gary,hugo,ida], [2,2,5], X), 756).
+
+test(lsort, [nondet]) :-
+	lsort([[a,b,c],[d,e],[f,g,h],[d,e],[i,j,k,l],[m,n],[o]], X), maplist(length, X, [1, 2, 2, 2, 3, 3, 4]).
 
 test(lfsort) :-
 	lfsort([[a, b, c], [d, e],[f, g, h], [d, e], [i, j, k, l], [m, n], [o]],  [[i, j, k, l], [o], [a, b, c], [f, g, h], [d, e], [d, e], [m, n]]).

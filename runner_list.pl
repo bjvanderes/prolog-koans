@@ -37,6 +37,7 @@ list_go :-
     list_select_rnd_int,
     list_rnd_permutation,
     list_combination,
+    list_extract_combination,
     list_group234,
     list_group,
     list_lsort,
@@ -123,10 +124,13 @@ list_rnd_permutation :-
 list_combination :-
     run_koan('', combination).
 
+list_extract_combination :-
+    run_koan('', extract_combination).
+
 list_group234 :-
     run_koan('', group234).
 
-list_group234 :-
+list_group :-
     run_koan('', group).
 
 list_lsort :-

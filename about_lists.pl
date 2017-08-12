@@ -4,7 +4,9 @@
 	my_compress/2, my_pack/2, my_encode/2, my_encode_modified/2,
 	my_encode_reverse/2, my_encode_direct/2, my_duplicate/2,
 	my_duplicate_for_n/3, my_drop/3, my_split/4, my_slice/4,
-	my_rotate/3, remove_at/4, insert_at/4, range/3]).
+	my_rotate/3, remove_at/4, insert_at/4, range/3, extract_rnd/3,
+	select_rnd_int/3, rnd_permutation/2, combination/3, extract_combination/4,
+	group234/4, group/3, lsort/2]).
 
 my_first(X, [X|_]) :- true.
 
@@ -108,26 +110,53 @@ my_rotate(X, N, RN) :- length(X, NX), NmodNX is N mod NX, my_split(X, NmodNX, XH
 remove_at_split(_, X, 0, X).
 remove_at_split(E, L, NE, R) :- NE > 0, NEm1 is NE - 1, my_split(L, NEm1, LH, [E | LTs]), append(LH, LTs, R).
 
-remove_at(X, [X | Xs], 1, Xs).
-remove_at(E, [Y | Xs], NE, [Y | Rs]) :- NE > 0, NEm1 is NE - 1, remove_at(E, Xs, NEm1, Rs).
+remove_at(X, [X | Xs], 1, Xs) :- !.
+remove_at(E, [Y | Xs], NE, [Y | Rs]) :- NE > 1, NEm1 is NE - 1, remove_at(E, Xs, NEm1, Rs).
 
 insert_at(E, L, NE, R) :- remove_at(E, R, NE, L).
 
-range(N, N, [N]).
+range(N, N, [N]) :- !.
 range(S, E, [S | Rs]) :- S < E, Sp1 is S + 1, range(Sp1, E, Rs).
 
-extract_rnd(_, _, _) :- false.
+extract_rnd(_, 0, []) :- !.
+extract_rnd(L, N, [RndE | Rs]) :- N > 0, Nm1 is N - 1,
+    length(L, NL),
+    Rnd is random(NL) + 1,
+    remove_at(RndE, L, Rnd, NxtL),
+    extract_rnd(NxtL, Nm1, Rs).
 
-select_rnd_int(_, _, _) :- false.
+select_rnd_int(X, N, Res) :- range(1, N, RL), extract_rnd(RL, X, Res).
 
-rnd_permutation(_, _) :- false.
 
-combination(_, _, _) :- false.
+rnd_permutation(L, R) :- length(L, NL), extract_rnd(L, NL, R).
 
-group234(_, _, _, _) :- false.
+combination(0, _, []).
+combination(N, [L | Ls], [L | Cs]) :- N > 0, Nm1 is N - 1, combination(Nm1, Ls, Cs).
+combination(N, [_ | Ls], C) :- N > 0, combination(N, Ls, C).
 
-group(_, _, _) :- false.
+extract_combination(0, L, [], L).
+extract_combination(N, [L | Ls], [L | Cs], Rest) :- N > 0, Nm1 is N - 1, extract_combination(Nm1, Ls, Cs, Rest).
+extract_combination(N, [L | Ls], C, [L | RestTail]) :- N > 0, extract_combination(N, Ls, C, RestTail).
 
-lsort(_, _) :- false.
+group234(L, G1, G2, G3) :- extract_combination(2, L, G1, L1), extract_combination(3, L1, G2, L2), extract_combination(4, L2, G3, _).
+
+group(_, [], _).
+group(L, [S | Ss], [G | Gs]) :- extract_combination(S, L, G, Ls), group(Ls, Ss, Gs).
+
+lsort([X], [X]) :- !.
+lsort([X, Y], [X, Y]) :- length(X, NX), length(Y, NY), NX < NY.
+lsort([X, Y], [Y, X]) :- length(X, NX), length(Y, NY), NX >= NY.
+lsort([X | Xs], S) :-
+    length(X, NX),
+    partition_lengths(NX, Xs, L, G),
+    lsort(L, SL),
+    lsort(G, SG),
+    append(SL, [X | SG], S).
+
+
+partition_lengths(_, [], [], []) :- !.
+partition_lengths(N, [X | Xs], L, [X | Gs]) :- length(X, NX), NX >= N, partition_lengths(N, Xs, L, Gs).
+partition_lengths(N, [X | Xs], [X | Ls], G) :- length(X, NX), NX < N, partition_lengths(N, Xs, Ls, G).
+
 
 lfsort(_, _) :- false.
