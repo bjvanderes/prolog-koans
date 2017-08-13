@@ -6,7 +6,7 @@
 	my_duplicate_for_n/3, my_drop/3, my_split/4, my_slice/4,
 	my_rotate/3, remove_at/4, insert_at/4, range/3, extract_rnd/3,
 	select_rnd_int/3, rnd_permutation/2, combination/3, extract_combination/4,
-	group234/4, group/3, lsort/2]).
+	group234/4, group/3, lsort/2, lfsort/2]).
 
 my_first(X, [X|_]) :- true.
 
@@ -143,6 +143,7 @@ group234(L, G1, G2, G3) :- extract_combination(2, L, G1, L1), extract_combinatio
 group(_, [], _).
 group(L, [S | Ss], [G | Gs]) :- extract_combination(S, L, G, Ls), group(Ls, Ss, Gs).
 
+lsort([], []) :- !.
 lsort([X], [X]) :- !.
 lsort([X, Y], [X, Y]) :- length(X, NX), length(Y, NY), NX < NY.
 lsort([X, Y], [Y, X]) :- length(X, NX), length(Y, NY), NX >= NY.
@@ -159,4 +160,18 @@ partition_lengths(N, [X | Xs], L, [X | Gs]) :- length(X, NX), NX >= N, partition
 partition_lengths(N, [X | Xs], [X | Ls], G) :- length(X, NX), NX < N, partition_lengths(N, Xs, Ls, G).
 
 
-lfsort(_, _) :- false.
+lfsort(X, F) :- group_by_length(X, G), lsort(G, S), flatten_1d(S, F).
+
+group_by_length(X, G) :- lsort(X, S), group_sorted_by_length(S, G).
+
+group_sorted_by_length([X], [[X]]).
+group_sorted_by_length([S | [S1 | S1s]], [[S | GS1s] | GSs]) :- length(S, NS), length(S1, NS1), NS == NS1, group_sorted_by_length([S1 | S1s], [GS1s | GSs]).
+group_sorted_by_length([S | [S1 | S1s]], [[S] | GSs]) :- length(S, NS), length(S1, NS1), NS \== NS1, group_sorted_by_length([S1 | S1s], GSs).
+
+flatten_1d([], []).
+flatten_1d([[X1] | Xs], [X1 | F]) :- flatten_1d(Xs, F).
+flatten_1d([[X1 | X1S] | Xs], [X1 | F]) :- flatten_1d([X1S | Xs], F).
+
+#group_into_by_length(X, [[X]]).
+#group_into_by_length(X, [[X, G1 | _] | _]) :- length(X, NX), length(G1, NG1), NX == NG1.
+#group_into_by_length(X, [[G1 | _] | Gs]) :- length(X, NX), length(G1, NG1), NX \== NG1, group_into_by_length(X, Gs).

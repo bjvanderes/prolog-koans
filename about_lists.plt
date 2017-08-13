@@ -132,7 +132,7 @@ test(lsort, [nondet]) :-
 	lsort([[a,b,c],[d,e],[f,g,h],[d,e],[i,j,k,l],[m,n],[o]], X), maplist(length, X, [1, 2, 2, 2, 3, 3, 4]).
 
 test(lfsort) :-
-	lfsort([[a, b, c], [d, e],[f, g, h], [d, e], [i, j, k, l], [m, n], [o]],  [[i, j, k, l], [o], [a, b, c], [f, g, h], [d, e], [d, e], [m, n]]).
+	lfsort([[a, b, c], [d, e],[f, g, h], [d, e], [i, j, k, l], [m, n], [o]],  [[o], [i, j, k, l], [a, b, c], [f, g, h], [d, e], [m, n], [d, e]] a).
 
 
 :- end_tests(about_lists).
