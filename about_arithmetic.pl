@@ -12,12 +12,13 @@ has_factors(N, F) :- F > 1, Fm1 is F - 1, has_factors(N, Fm1).
 
 
 % Make arithmetic function
-gcd(A, A, A).
-gcd(1, _, 1).
-gcd(L, S, G) :- L > S, S > 1, gcd(S, L, G).
-gcd(S, L, G) :- L > S, S > 1, D is L - S, gcd(S, D, G).
+gcd(A, A, A) :- !.
+gcd(1, _, 1) :- !.
+gcd(_, 1, 1) :- !.
+gcd(L, S, G) :- S > 1, L > S, gcd(S, L, G).
+gcd(S, L, G) :- S > 1, L > S, D is L - S, gcd(S, D, G).
 
-coprime(A, B) :- gcd(A, B) =:= 1.
+coprime(A, B) :- gcd(A, B, 1).
 
 % Arithmetic
 euler_totient_phi(M, Cnt) :- euler_totient_phi_(M, 1, Cnt).
@@ -26,7 +27,13 @@ euler_totient_phi_(M, L, Cnt) :- L < M, coprime(L, M), Lp1 is L + 1, euler_totie
 euler_totient_phi_(M, L, Cnt) :- L < M, \+ coprime(L, M), Lp1 is L + 1, euler_totient_phi_(M, Lp1, Cnt).
 
 
-prime_factors(_,_) :- false.
+prime_factors(M, R) :- prime_factors_greater_equal_than(2, M, R).
+prime_factors_greater_equal_than(_, 1, []) :- !.
+prime_factors_greater_equal_than(2, M, R) :- coprime(2, M), prime_factors_greater_equal_than(3, M, R).
+prime_factors_greater_equal_than(2, M, [2 | Rs]) :- gcd(2, M, 2), Mdiv2 is M / 2, prime_factors_greater_equal_than(2, Mdiv2, Rs).
+
+prime_factors_greater_equal_than(L, M, R) :- L > 2, (\+ is_prime(L); coprime(L, M)), Lp2 is L + 2, prime_factors_greater_equal_than(Lp2, M, R).
+prime_factors_greater_equal_than(L, M, [L | Rs]) :- L > 2, is_prime(L), gcd(L, M, L), MdivL is M / L, prime_factors_greater_equal_than(L, MdivL, Rs).
 
 prime_factors_multiplicity(_,_) :- false.
 

@@ -26,13 +26,13 @@ arithmetic_prime :-
 	run_koan('Can you write a predicate for prime numbers?', is_prime).
 
 arithmetic_gcd :-
-	run_koan("Use Euclid's algorithm to determine the greatest common divisor of two integers and create a prolog arithmetic function from it", gcd).
+	run_koan('Use Euclid\'s algorithm to determine the greatest common divisor of two integers and create a prolog arithmetic function from it', gcd).
 
 arithmetic_coprime :-
-	run_koan("Use your gcd function to determine if two integers are coprime.", coprime).
+	run_koan('Use your gcd function to determine if two integers are coprime.', coprime).
 
 arithmetic_euler_totient_phi :-
-	run_koan("Determine all coprime integers of an upper bound.", euler_totient_phi).
+	run_koan('Determine all coprime integers of an upper bound.', euler_totient_phi).
 
 arithmetic_prime_factors :-
 	run_koan('Can you find all the prime factors given a positive integer?', prime_factors).

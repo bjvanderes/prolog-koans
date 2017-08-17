@@ -6,7 +6,7 @@ test(is_prime) :-
 test(is_prime, [fail]) :-
 	is_prime(6).
 
-test(gcd, [nondet]) :-
+test(gcd) :-
 	gcd(36, 63, 9), gcd(63, 36, G), gcd(7, 7, 7), gcd(33, 88, 11).
 test(gcd) :-
 	G is gcd(36, 63), G =:= 9.
