@@ -6,6 +6,19 @@ test(is_prime) :-
 test(is_prime, [fail]) :-
 	is_prime(6).
 
+test(gcd, [nondet]) :-
+	gcd(36, 63, 9), gcd(63, 36, G), gcd(7, 7, 7), gcd(33, 88, 11).
+test(gcd) :-
+	G is gcd(36, 63), G =:= 9.
+
+test(coprime) :-
+	coprime(35, 64), coprime(64, 35).
+test(coprime, [fail]) :-
+	coprime(36, 63).
+
+test(euler_totient_phi, [nondet]) :-
+	euler_totient_phi(10, 4), euler_totient_phi(11, 10), euler_totient_phi(13, 12).
+
 test(prime_factors) :-
 	prime_factors(315,[3,3,5,7]).
 

@@ -12,12 +12,19 @@ has_factors(N, F) :- F > 1, Fm1 is F - 1, has_factors(N, Fm1).
 
 
 % Make arithmetic function
-gcd(_, _, _) :- false.
+gcd(A, A, A).
+gcd(1, _, 1).
+gcd(L, S, G) :- L > S, S > 1, gcd(S, L, G).
+gcd(S, L, G) :- L > S, S > 1, D is L - S, gcd(S, D, G).
 
-coprime(_, _) :- false.
+coprime(A, B) :- gcd(A, B) =:= 1.
 
 % Arithmetic
-euler_totient_phi(_, _) :- false.
+euler_totient_phi(M, Cnt) :- euler_totient_phi_(M, 1, Cnt).
+euler_totient_phi_(M, M, 0).
+euler_totient_phi_(M, L, Cnt) :- L < M, coprime(L, M), Lp1 is L + 1, euler_totient_phi_(M, Lp1, CntM1), Cnt is CntM1 + 1.
+euler_totient_phi_(M, L, Cnt) :- L < M, \+ coprime(L, M), Lp1 is L + 1, euler_totient_phi_(M, Lp1, Cnt).
+
 
 prime_factors(_,_) :- false.
 
