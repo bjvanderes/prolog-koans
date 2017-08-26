@@ -17,8 +17,10 @@ arithmetic_go :-
 	arithmetic_euler_totient_phi,
     arithmetic_prime_factors,
 	arithmetic_prime_factors_multiplicity,
+	arithmetic_phi_improved,
 	arithmetic_range_prime,
 	arithmetic_goldbach_conjecture,
+	arithmetic_list_goldbach_compositions,
 	arithmetic_greatest_common_divisor,
 	arithmetic_is_coprime.
 
@@ -40,11 +42,17 @@ arithmetic_prime_factors :-
 arithmetic_prime_factors_multiplicity :- 
 	run_koan('Can you find all the prime factors with their multiplicity given a positive integer? (The previous problem may be of use)', prime_factors_multiplicity).
 
+arithmetic_phi_improved :-
+   	run_koan('Use the multiplicative formula for Phi and compare with naive version.', phi_improved).
+
 arithmetic_range_prime :-
 	run_koan('Can you construct a list of prime numbers from the lower and upper limit of a range?', range_prime).
 
 arithmetic_goldbach_conjecture :-
 	run_koan('Given Goldbach\'s conjecture that every positive even number greater than 2 is the sum of two prime numbers, can you find the two prime numbers which sum up to a given even integer?', goldbach_conjecture).
+
+arithmetic_list_goldbach_compositions :-
+	run_koan('Use previous goldbach algorithm to generate list', list_goldbach_compositions).
 
 arithmetic_greatest_common_divisor :-
 	run_koan('Determine the greatest common divisor between two numbers', greatest_common_divisor).

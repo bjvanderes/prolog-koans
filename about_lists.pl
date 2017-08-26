@@ -6,7 +6,7 @@
 	my_duplicate_for_n/3, my_drop/3, my_split/4, my_slice/4,
 	my_rotate/3, remove_at/4, insert_at/4, range/3, extract_rnd/3,
 	select_rnd_int/3, rnd_permutation/2, combination/3, extract_combination/4,
-	group234/4, group/3, lsort/2, lfsort/2]).
+	group234/4, group/3, lsort/2, lfsort/2, flatten_1d/2]).
 
 my_first(X, [X|_]) :- true.
 
