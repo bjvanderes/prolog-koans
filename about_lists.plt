@@ -114,25 +114,25 @@ test(extract_combination, [nondet]) :-
 	extract_combination(3, [a,b,c,d,e,f,g], [a, b, c], [d,e,f,g]).
 
 test(combination) :-
-	aggregate_all(count, combination(3, [a,b,c,d,e,f], C), 20).
+	aggregate_all(count, combination(3, [a,b,c,d,e,f], _), 20).
 
 test(extract_combination) :-
-	aggregate_all(count, extract_combination(3, [a,b,c,d,e,f], C, R), 20).
+	aggregate_all(count, extract_combination(3, [a,b,c,d,e,f], _, _), 20).
 
 test(group234) :-
-	aggregate_all(count, group234([aldo,beat,carla,david,evi,flip,gary,hugo,ida], G2, G3, G4), 1260).
+	aggregate_all(count, group234([aldo,beat,carla,david,evi,flip,gary,hugo,ida], _, _, _), 1260).
 
 test(group, [nondet]) :-
 	group([aldo,beat,carla,david,evi,flip,gary,hugo,ida], [2,2,5], [[aldo,beat],[carla,david],[evi,flip,gary,hugo,ida]]).
 
 test(group) :-
-	aggregate_all(count, group([aldo,beat,carla,david,evi,flip,gary,hugo,ida], [2,2,5], X), 756).
+	aggregate_all(count, group([aldo,beat,carla,david,evi,flip,gary,hugo,ida], [2,2,5], _), 756).
 
 test(lsort, [nondet]) :-
-	lsort([[a,b,c],[d,e],[f,g,h],[d,e],[i,j,k,l],[m,n],[o]], X), maplist(length, X, [1, 2, 2, 2, 3, 3, 4]).
+	lsort([[a, b, c], [d, e],[f, g, h], [d, e], [i, j, k, l], [m, n], [o]], X), maplist(length, X, [1, 2, 2, 2, 3, 3, 4]).
 
-test(lfsort) :-
-	lfsort([[a, b, c], [d, e],[f, g, h], [d, e], [i, j, k, l], [m, n], [o]],  [[o], [i, j, k, l], [a, b, c], [f, g, h], [d, e], [m, n], [d, e]] a).
-
+% FIXME: Order of answer could be different for other algos.
+test(lfsort, [nondet]) :-
+	lfsort([[a, b, c], [d, e],[f, g, h], [d, e], [i, j, k, l], [m, n], [o]],  [[o], [i, j, k, l], [a, b, c], [f, g, h], [d, e], [m, n], [d, e]]).
 
 :- end_tests(about_lists).

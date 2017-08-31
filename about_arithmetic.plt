@@ -34,9 +34,10 @@ test(range_prime) :-
 test(goldbach_conjecture, [nondet]) :-
 	goldbach_conjecture(28, [5, 23]).
 test(goldbach_conjecture) :-
-    aggregate_all(count, goldbach_conjecture(28, X), 2).
+    aggregate_all(count, goldbach_conjecture(28, _), 2).
 
 test(list_goldbach_compositions, [nondet]) :-
-	list_goldbach_compositions(9, 20, [[3, 7], [5, 7], [3, 11], [3, 13], [5, 11], [5, 13], [7, 11], [3, 17], [7, 13]]).
+	list_goldbach_compositions(9, 20, [[3, 7], [5, 7], [3, 11], [3, 13], [5, 11], [5, 13], [7, 11], [3, 17], [7, 13]]),
+	list_goldbach_compositions(11, 27, [[5, 7], [3, 11], [3, 13], [5, 11], [5, 13], [7, 11], [3, 17], [7, 13], [3, 19], [5, 17], [5, 19], [7, 17], [11, 13], [3, 23], [7, 19]]).
 
 :- end_tests(about_arithmetic).

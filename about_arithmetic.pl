@@ -3,9 +3,8 @@
 	range_prime/3, goldbach_conjecture/2, gcd/3, coprime/2, euler_totient_phi/2,
 	phi_improved/2, compare_phi/1, list_goldbach_compositions/3]).
 
-use_module(library(lambda)).
-use_module(about_lists).
-ensure_loaded(about_lists).
+:- use_module(library(lambda)).
+:- use_module(about_lists).
 
 
 is_prime(N) :- SQRT_N is floor(sqrt(N)), \+ has_factors(N, SQRT_N).
@@ -90,16 +89,12 @@ first_and_last_sum_equal_to(E, [First | R], P) :-
 goldbach_conjecture(4, [2, 2]).
 goldbach_conjecture(M, P) :- M > 4, M mod 2 =:= 0, range_prime(3, M, Primes), first_and_last_sum_equal_to(M, Primes, P).
 
-flatten_1d([], []).
-flatten_1d([[X1] | Xs], [X1 | F]) :- flatten_1d(Xs, F).
-flatten_1d([[X1 | X1S] | Xs], [X1 | F]) :- flatten_1d([X1S | Xs], F).
-
 list_goldbach_compositions(L, U, O) :- L > 2, L mod 2 =:= 1, Lp1 is L + 1, list_goldbach_compositions(Lp1, U, O).
 list_goldbach_compositions(L, U, O) :- L > 2, U > L, U mod 2 =:= 1, Um1 is U - 1, list_goldbach_compositions(L, Um1, O).
 list_goldbach_compositions(L, U, O) :- L > 2, U > L, L mod 2 =:= 0, U mod 2 =:= 0,
-    UmLdiv2p1 is ((U - L) // 2) + 1,
-    numlist(0, UmLdiv2p1, RangeL),
-    maplist(\X^Y^(Y is 10 + 2 * X), RangeL, EvenGoldBachRange),
-    maplist(\X^findall(P, goldbach_conjecture(X, P)), [10, 12, 14, 16, 18, 20], GoldbachCompositions),
-    flatten_1d(GoldbachCompositions, O).
+    UmLdiv2 is ((U - L) // 2),
+    numlist(0, UmLdiv2, RangeL),
+    maplist(\X^Y^(Y is L + 2 * X), RangeL, EvenGoldBachRange),
+    maplist(\X^findall(P, goldbach_conjecture(X, P)), EvenGoldBachRange, GoldbachCompositions),
+    about_lists:flatten_1d(GoldbachCompositions, O).
 

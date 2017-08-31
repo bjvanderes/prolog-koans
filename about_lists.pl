@@ -172,6 +172,7 @@ flatten_1d([], []).
 flatten_1d([[X1] | Xs], [X1 | F]) :- flatten_1d(Xs, F).
 flatten_1d([[X1 | X1S] | Xs], [X1 | F]) :- flatten_1d([X1S | Xs], F).
 
-#group_into_by_length(X, [[X]]).
-#group_into_by_length(X, [[X, G1 | _] | _]) :- length(X, NX), length(G1, NG1), NX == NG1.
-#group_into_by_length(X, [[G1 | _] | Gs]) :- length(X, NX), length(G1, NG1), NX \== NG1, group_into_by_length(X, Gs).
+/** group_into_by_length(X, [[X]]).
+*   group_into_by_length(X, [[X, G1 | _] | _]) :- length(X, NX), length(G1, NG1), NX == NG1.
+*   group_into_by_length(X, [[G1 | _] | Gs]) :- length(X, NX), length(G1, NG1), NX \== NG1, group_into_by_length(X, Gs).
+*/

@@ -1,12 +1,12 @@
 :- module(runner_logic_codes, [logic_go/0]).
 
+run_koan(X,L) :-
+	koan_helper(X, about_logic_codes:L).
+
 logic_load :-
 	[runner_helper],
 	[about_logic_codes],
 	load_test_files(about_logic_codes).
-
-run_koan(X,L) :-
-	koan_helper(X, about_logic_codes:L).
 
 logic_go :-
 	logic_load,
@@ -16,7 +16,9 @@ logic_go :-
 	logic_nor,
 	logic_xor,
 	logic_impl,
-	logic_equ.
+	logic_equ,
+	logic_table,
+	logic_gray.
 
 logic_and :-
 	run_koan('Define a predicate which succeeds only if both arguments succeed (and)', and).
@@ -33,3 +35,7 @@ logic_xor :- run_koan('Define the xor predicate', xor).
 logic_impl :- run_koan('Define the impl predicate', impl).
 
 logic_equ :- run_koan('Define the equ predicate for logical equivalence', equ).
+
+logic_table :- run_koan('Make sure the logical predicates are defined as operators (lookup: op(...) with precedence similar to Java. Create the logic table for `Var1 Var2...VarX Expr`.', table).
+
+logic_gray :- run_koan('Construct Gray codes and memoize to improve performance (Hint: assert, asserta, assertz)', gray).
