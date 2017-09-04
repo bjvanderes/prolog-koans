@@ -9,5 +9,7 @@ go :-
 	runner_arithmetic:arithmetic_go,
 	[runner_logic_codes],
     runner_logic_codes:logic_go,
+    [runner_binary_trees],
+    runner_binary_trees:binary_trees_go,
   see(user),
   writeln('This path has been completed. Go forth to new challenges!').
