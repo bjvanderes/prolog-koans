@@ -77,6 +77,7 @@ test(gray) :-
     Inf is InfEnd - InfStart,
     Inf < 100.
 
-
+test(huffman) :-
+    huffman([fr(a, 45), fr(b, 13), fr(c, 12), fr(d, 16), fr(e, 9), fr(f, 5)], [hc(a, '0'), hc(c, '100'), hc(b, '101'), hc(f, '1100'), hc(e, '1101'), hc(d, '111')]).
 
 :- end_tests(about_logic_codes).

@@ -18,7 +18,8 @@ logic_go :-
 	logic_impl,
 	logic_equ,
 	logic_table,
-	logic_gray.
+	logic_gray,
+	logic_huffman.
 
 logic_and :-
 	run_koan('Define a predicate which succeeds only if both arguments succeed (and)', and).
@@ -39,3 +40,5 @@ logic_equ :- run_koan('Define the equ predicate for logical equivalence', equ).
 logic_table :- run_koan('Make sure the logical predicates are defined as operators (lookup: op(...) with precedence similar to Java. Create the logic table for `Var1 Var2...VarX Expr`.', table).
 
 logic_gray :- run_koan('Construct Gray codes and memoize to improve performance (Hint: assert, asserta, assertz)', gray).
+
+logic_huffman :- run_koan('Learn more about huffman codes. Take list of frequencies per symbol [fr(Symbol, Frequency)] and generate list of huffman codes [hc(Symbol, Huffman-Code)]', huffman).
