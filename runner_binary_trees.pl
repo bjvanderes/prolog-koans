@@ -8,6 +8,7 @@ binary_trees_load :-
 	[about_binary_trees],
 	load_test_files(about_binary_trees).
 
-binary_trees_go :- binary_trees_load.
+binary_trees_go :- binary_trees_load,
+    binary_trees_is_tree.
 
-% logic_and :- run_koan('Define a predicate which succeeds only if both arguments succeed (and)', and).
+binary_trees_is_tree :- run_koan('Test whether the input is a tree as defined per official 99 problems', is_tree).
