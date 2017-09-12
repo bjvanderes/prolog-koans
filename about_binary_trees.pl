@@ -1,5 +1,6 @@
 :- module(about_binary_trees,
-	[is_tree/1, cbal_tree/2, symmetric_tree/1, mirrored_tree/2, construct_unbalanced_binary_tree/2, test_symmetric_unbalanced_binary_tree/1, sym_cbal_trees/2]).
+	[is_tree/1, cbal_tree/2, symmetric_tree/1, mirrored_tree/2, construct_unbalanced_binary_tree/2,
+	test_symmetric_unbalanced_binary_tree/1, sym_cbal_trees/2, hbal_tree/2]).
 
 is_tree(nil).
 is_tree(t(_, STL, STR)) :- is_tree(STL), is_tree(STR).
@@ -41,3 +42,13 @@ test_symmetric_unbalanced_binary_tree(L) :- construct_unbalanced_binary_tree(L, 
 
 sym_cbal_trees(NrNodes, TList) :- aggregate_all(bag(T), (cbal_tree(NrNodes, T), symmetric_tree(T)), TList).
 
+hbal_tree(0, nil) :- !.
+hbal_tree(1, t(x, nil, nil)) :- !.
+hbal_tree(H, t(x, STL, STR)) :- H > 1,
+    Hm1 is H - 1, Hm2 is H - 2,
+    distr(Hm1, Hm2, HSTL, HSTR),
+    hbal_tree(HSTL, STL), hbal_tree(HSTR, STR).
+
+distr(D1,_,D1,D1).
+distr(D1,D2,D1,D2).
+distr(D1,D2,D2,D1).

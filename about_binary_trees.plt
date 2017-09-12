@@ -39,4 +39,10 @@ test(sym_cbal_trees) :-
 test(sym_cbal_trees) :-
     sym_cbal_trees(57, TList), length(TList, 256).
 
+test(hbal_tree) :-
+    aggregate_all(bag(T), hbal_tree(2, T), [t(x, t(x, nil, nil), t(x, nil, nil)), t(x, t(x, nil, nil), nil), t(x, nil, t(x, nil, nil))]).
+
+test(hbal_tree) :-
+    aggregate_all(count, hbal_tree(4, T), 315).
+
 :- end_tests(about_binary_trees).
