@@ -52,3 +52,12 @@ hbal_tree(H, t(x, STL, STR)) :- H > 1,
 distr(D1,_,D1,D1).
 distr(D1,D2,D1,D2).
 distr(D1,D2,D2,D1).
+
+min_nodes(0, 0) :- !.
+min_nodes(1, 1) :- !.
+min_nodes(H, N) :- H > 1,
+    Hm1 is H - 1, Hm2 is H - 2,
+    min_nodes(Hm1, NHm1), min_nodes(Hm2, NHm2),
+    N is NHm1 + NHm2 + 1.
+
+max_height(N, H)
